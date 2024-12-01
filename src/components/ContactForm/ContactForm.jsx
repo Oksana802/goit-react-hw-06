@@ -2,8 +2,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import s from "./ContactForm.module.css";
 import { nanoid } from "nanoid";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-const ContactForm = ({ onAddUser }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
   const initialValues = {
     name: "",
     number: "",
@@ -21,12 +24,15 @@ const ContactForm = ({ onAddUser }) => {
   });
 
   const handleSubmit = (values, options) => {
-    onAddUser({
-      id: nanoid(),
-      ...values,
-    });
+    dispatch(
+      addContact({
+        id: nanoid(),
+        ...values,
+      })
+    );
     options.resetForm();
   };
+
   return (
     <div className={s.wrapper}>
       <Formik
@@ -43,7 +49,7 @@ const ContactForm = ({ onAddUser }) => {
               name="name"
               placeholder="Вкажіть Ім'я"
             />
-            <ErrorMessage name="name" component="span" className={s.error} />
+            <ErrorMessage name="name" component="div" className={s.error} />
           </label>
           <label className={s.label}>
             <span>Number</span>
@@ -53,7 +59,7 @@ const ContactForm = ({ onAddUser }) => {
               name="number"
               placeholder="Номер телефону може містити тільки цифри"
             />
-            <ErrorMessage name="number" component="span" className={s.error} />
+            <ErrorMessage name="number" component="div" className={s.error} />
           </label>
           <button type="submit" className={s.btn}>
             Add contact

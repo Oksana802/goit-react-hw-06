@@ -1,5 +1,6 @@
 .filter {
-  width: 40vh;
+  width: 40vw;
+  max-width: 320px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -7,6 +8,8 @@
 }
 
 .span {
+  color: aliceblue;
+  font-weight: 700;
 }
 .input {
   min-height: 30px;
